@@ -1,9 +1,11 @@
 from django.http import HttpResponse 
 from django.shortcuts import render
 
+from .models import Post
+
 def post_list(request):
-    context = {}
-    return render(request, 'posts/post_list.html', context)
+    posts = Post.objects.all()
+    return render(request, 'posts/post_list.html', {'posts': posts})
 
 def post_create(request):
     return HttpResponse("<h1>Retrun from post_create</h1>")
