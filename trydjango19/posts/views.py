@@ -10,8 +10,8 @@ def post_list(request):
 def post_create(request):
     return HttpResponse("<h1>Retrun from post_create</h1>")
 
-def post_detail(request):
-    post = get_object_or_404(Post, id=2)
+def post_detail(request, pk):
+    post = get_object_or_404(Post, id=pk)
     return render(request, 'posts/post_detail.html', {'post': post})
 
 def post_update(request):
