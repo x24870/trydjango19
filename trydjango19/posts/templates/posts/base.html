@@ -1,7 +1,10 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>{% block title %}Try Django 1.9{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'posts/css/base.css' %}">
 </head>
 <body>
     {% include "posts/messages_display.html" %}
