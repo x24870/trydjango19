@@ -1,24 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends "posts/base.html" %}
 
-</head>
-<body>
+{% block title %}
+{{ instance.title }} | {{ block.super }}
+{% endblock title %}
 
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-
+{% block content %}
     <h1>This is post_detail page</h1>
 
-    <h6>{{ post.title }}</h6>
-    <h6>{{ post.timestamp }}</h6>
-    <h6>{{ post.updated }}</h6>
-    <h6>{{ post.content }}</h6>
-
-</body>
-</html>
+    <h6>{{ instance.title }}</h6>
+    <h6>{{ instance.timestamp }}</h6>
+    <h6>{{ instance.updated }}</h6>
+    <h6>{{ instance.content }}</h6>
+{% endblock content %}

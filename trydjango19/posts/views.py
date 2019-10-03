@@ -23,8 +23,8 @@ def post_create(request):
     return render(request, 'posts/post_form.html', context)
 
 def post_detail(request, id=None):
-    post = get_object_or_404(Post, id=id)
-    return render(request, 'posts/post_detail.html', {'post': post})
+    instance = get_object_or_404(Post, id=id)
+    return render(request, 'posts/post_detail.html', {'instance': instance})
 
 def post_update(request, id=None):
     instance = get_object_or_404(Post, id=id)

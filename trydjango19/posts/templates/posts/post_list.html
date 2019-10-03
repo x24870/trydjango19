@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends "posts/base.html" %}
 
-</head>
-<body>
-
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-
+{% block content %}
+    {{ block.super }} <!--get parent template content -->
     <h1>This is post_list page</h1>
 
     {% for post in posts %}
@@ -21,8 +10,7 @@
     <h6>{{ post.timestamp }}</h6>
     <h6>{{ post.updated }}</h6>
     <h6>{{ post.context }}</h6>
-</br></br>
+    </br></br>
     {% endfor %}
 
-</body>
-</html>
+{% endblock content %}
