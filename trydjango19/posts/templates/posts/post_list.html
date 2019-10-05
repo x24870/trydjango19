@@ -5,12 +5,17 @@
     <h1>This is post_list page</h1>
 
     {% for post in posts %}
-    <!-- <h6><a href="{% url 'posts:detail' id=post.id %}">{{ post.title }}</a></h6> -->
-    <h6><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h6>
-    <h6>{{ post.timestamp }}</h6>
-    <h6>{{ post.updated }}</h6>
-    <h6>{{ post.context }}</h6>
-    </br></br>
+    <div class="card">
+        <img class="card-img-top" src="" alt="Card image cap">
+        <div class="card-body">
+            <!-- <h6><a href="{% url 'posts:detail' id=post.id %}">{{ post.title }}</a></h6> -->
+            <h2 class="card-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a><small> | {{ post.timestamp }}</small></h2>
+            <h6 class="card-text">Updated: {{ post.updated | timesince }} ago</h6>
+            <p>{{ post.content | linebreaks | truncatechars:80 }}</p>
+            <a href="{{ post.get_absolute_url }}" class="btn btn-primary">View...</a>
+        </div>
+        <hr>
+    </div>
     {% endfor %}
 
 {% endblock content %}
