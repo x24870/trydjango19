@@ -10,5 +10,8 @@
     <h6>{{ instance.title }}</h6>
     <h6>{{ instance.timestamp }}</h6>
     <h6>{{ instance.updated }}</h6>
+    {% if instance.image %}
+    <img src="{{ instance.image.url }}" class="img-resp">
+    {% endif %}
     <h6>{{ instance.content }}</h6>
 {% endblock content %}
