@@ -1,4 +1,5 @@
 from django.http import HttpResponse, HttpResponseRedirect
+from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 
@@ -6,8 +7,16 @@ from .forms import PostForm
 from .models import Post
 
 def post_list(request):
-    posts = Post.objects.all()
-    return render(request, 'posts/post_list.html', {'posts': posts})
+    post_list = Post.objects.all()
+    paginator = Paginator(post_list, 5) #show 5 posts per page
+    page_req_var = 'page'
+    page = request.GET.get(page_req_var)
+    context = {
+        'Title': 'Post lists',
+        'page': page_req_var,
+        'posts': paginator.get_page(page)
+    }
+    return render(request, 'posts/post_list.html', context=context)
 
 def post_create(request):
     form = PostForm(request.POST or None)
