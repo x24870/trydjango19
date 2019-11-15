@@ -7,14 +7,14 @@ from .forms import PostForm
 from .models import Post
 
 def post_list(request):
-    post_list = Post.objects.all()
-    paginator = Paginator(post_list, 5) #show 5 posts per page
+    all_post_list = Post.objects.all()
+    paginator = Paginator(all_post_list, 5) #show 5 posts per page
     page_req_var = 'page'
     page = request.GET.get(page_req_var)
     context = {
-        'Title': 'Post lists',
-        'page': page_req_var,
-        'posts': paginator.get_page(page)
+        'title': 'Post lists',
+        'page_req_var': page_req_var,
+        'post_list': paginator.get_page(page)
     }
     return render(request, 'posts/post_list.html', context=context)
 
