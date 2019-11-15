@@ -10,7 +10,6 @@
         <img class="card-img-top" src="{{ post.image.url }}">
         {% endif %}
         <div class="card-body">
-            <!-- <h6><a href="{% url 'posts:detail' id=post.id %}">{{ post.title }}</a></h6> -->
             <h2 class="card-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a><small> | {{ post.timestamp }}</small></h2>
             <h6 class="card-text">Updated: {{ post.updated | timesince }} ago</h6>
             <p>{{ post.content | linebreaks | truncatechars:80 }}</p>
