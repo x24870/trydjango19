@@ -21,7 +21,7 @@ def post_list(request):
     return render(request, 'posts/post_list.html', context=context)
 
 def post_create(request):
-    if not request.user.is_staff or not request.user.is_superuser:
+    if not request.user.is_staff and not request.user.is_superuser:
         raise Http404
 
     form = PostForm(request.POST or None, request.FILES or None)
