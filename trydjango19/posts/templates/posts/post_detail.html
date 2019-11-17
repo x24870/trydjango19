@@ -1,4 +1,5 @@
 {% extends "posts/base.html" %}
+{% load urltify %}
 
 {% block title %}
 {{ context.instance.title }} | {{ block.super }}
@@ -10,11 +11,16 @@
     <h6>{{ context.instance.title }}</h6>
     <h6>{{ context.instance.timestamp }}</h6>
     <h6>{{ context.instance.updated }}</h6>
+    <hr>
     {% if context.instance.image %}
     <img src="{{ context.instance.image.url }}" class="img-resp">
     {% endif %}
     <h6>{{ context.instance.content }}</h6>
-    {{ context.share_string }}
+    <hr>
+    <!-- demostrate two ways to implement share string -->
+    {{ context.share_string | truncatechars:50 }}
+    {{ context.instance.content | urltify | truncatechars:50 }}
+    <hr>
     <div class="share-to-social-media">
         <p>Share to:
         <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
