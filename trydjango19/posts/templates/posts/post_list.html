@@ -11,6 +11,7 @@
         {% endif %}
         <div class="card-body">
             <h2 class="card-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a><small> | {{ post.timestamp }}</small></h2>
+            {% if post.user.get_full_name %}<h6>Author: {{ post.user.get_full_name }}</h6>{% endif %}
             <h6 class="card-text">Updated: {{ post.updated | timesince }} ago</h6>
             <p>{{ post.content | linebreaks | truncatechars:80 }}</p>
             <a href="{{ post.get_absolute_url }}" class="btn btn-primary">View...</a>

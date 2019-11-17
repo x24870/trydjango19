@@ -9,6 +9,9 @@
     <h1>This is post_detail page</h1>
 
     <h6>{{ context.instance.title }}</h6>
+    {% if context.instance.user.get_full_name %}
+        <h6>Author: {{ context.instance.user.get_full_name }}</h6>
+    {% endif %}
     <h6>{{ context.instance.timestamp }}</h6>
     <h6>{{ context.instance.updated }}</h6>
     <hr>
