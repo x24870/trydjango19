@@ -20,9 +20,12 @@
     {% endif %}
     <h6>{{ context.instance.content }}</h6>
     <hr>
+    <div class="row">
+        <div class="fb-like" data-href="{{ request.build_absolute_uri }}" data-width="" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+    </div>
     <!-- demostrate two ways to implement share string -->
-    {{ context.share_string | truncatechars:50 }}<br>
-    {{ context.instance.content | urltify | truncatechars:50 }}
+    <!-- {{ context.share_string | truncatechars:50 }}<br> -->
+    <!-- {{ context.instance.content | urltify | truncatechars:50 }} -->
     <hr>
     <div class="share-to-social-media">
         <p>Share to:
@@ -33,6 +36,9 @@
             Twitter
         </a>
         </p>
+    </div>
+    <div class="row">
+        <div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-width="" data-numposts="5"></div>
     </div>
 
 {% endblock content %}
