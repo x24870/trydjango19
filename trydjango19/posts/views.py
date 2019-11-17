@@ -21,7 +21,7 @@ def post_list(request):
     return render(request, 'posts/post_list.html', context=context)
 
 def post_create(request):
-    if not request.user.is_staff or not request.user.superuser:
+    if not request.user.is_staff or not request.user.is_superuser:
         raise Http404
 
     form = PostForm(request.POST or None, request.FILES or None)
@@ -67,7 +67,7 @@ def post_update(request, id=None):
 def post_delete(request, id=None):
     if not request.user.is_staff or not request.user.superuser:
         raise Http404
-    
+
     instance = get_object_or_404(Post, id=id)
     instance.delete()
     messages.success(request, 'delete post succesfully')
