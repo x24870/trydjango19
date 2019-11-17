@@ -18,7 +18,7 @@
     <h6>{{ context.instance.content }}</h6>
     <hr>
     <!-- demostrate two ways to implement share string -->
-    {{ context.share_string | truncatechars:50 }}
+    {{ context.share_string | truncatechars:50 }}<br>
     {{ context.instance.content | urltify | truncatechars:50 }}
     <hr>
     <div class="share-to-social-media">
