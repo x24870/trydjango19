@@ -15,7 +15,14 @@
             </h2>
             {% if post.user.get_full_name %}<h6>Author: {{ post.user.get_full_name }}</h6>{% endif %}
             <!-- <h6 class="card-text">Updated: {{ post.updated | timesince }} ago</h6> -->
-            <h6>Published: {{ post.publish }}</h6>
+            <h6>Published: {{ post.publish }}
+                {% if post.draft %}
+                    <small><span style="color:red">Draft</span></small>
+                {% endif %}
+                {% if post.publish > today %}
+                    <small><span style="color:red">Not publish Yet</span></small>
+                {% endif %}
+            </h6>
             <p>{{ post.content | linebreaks | truncatechars:80 }}</p>
             <a href="{{ post.get_absolute_url }}" class="btn btn-primary">View...</a>
         </div>

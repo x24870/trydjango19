@@ -2,43 +2,43 @@
 {% load urltify %}
 
 {% block title %}
-{{ context.instance.title }} | {{ block.super }}
+{{ instance.title }} | {{ block.super }}
 {% endblock title %}
 
 {% block content %}
     <h1>This is post_detail page</h1>
 
-    <h6>{{ context.instance.title }}</h6>
-    {% if context.instance.user.get_full_name %}
-        <h6>Author: {{ context.instance.user.get_full_name }}</h6>
+    <h6>{{ instance.title }}</h6>
+    {% if instance.user.get_full_name %}
+        <h6>Author: {{ instance.user.get_full_name }}</h6>
     {% endif %}
-    <!-- <h6>{{ context.instance.timestamp }}</h6> -->
-    <!-- <h6>{{ context.instance.updated }}</h6> -->
+    <!-- <h6>{{ instance.timestamp }}</h6> -->
+    <!-- <h6>{{ instance.updated }}</h6> -->
     <h6>
-        Published: {{ context.instance.publish }}
-        {% if context.instance.draft %}
+        Published: {{ instance.publish }}
+        {% if instance.draft %}
             <small><span style="color:red">Draft</span></small>
         {% endif %}
     </h6>
     <hr>
-    {% if context.instance.image %}
-    <img src="{{ context.instance.image.url }}" class="img-resp">
+    {% if instance.image %}
+    <img src="{{ instance.image.url }}" class="img-resp">
     {% endif %}
-    <h6>{{ context.instance.content }}</h6>
+    <h6>{{ instance.content }}</h6>
     <hr>
     <div class="row">
         <div class="fb-like" data-href="{{ request.build_absolute_uri }}" data-width="" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
     </div>
     <!-- demostrate two ways to implement share string -->
-    <!-- {{ context.share_string | truncatechars:50 }}<br> -->
-    <!-- {{ context.instance.content | urltify | truncatechars:50 }} -->
+    <!-- {{ share_string | truncatechars:50 }}<br> -->
+    <!-- {{ instance.content | urltify | truncatechars:50 }} -->
     <hr>
     <div class="share-to-social-media">
         <p>Share to:
         <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
             Facebook
         </a>,
-        <a href="https://twitter.com/intent/tweet?text={{context.share_string}}%20{{ request.build_absolute_uri }}">
+        <a href="https://twitter.com/intent/tweet?text={{share_string}}%20{{ request.build_absolute_uri }}">
             Twitter
         </a>
         </p>

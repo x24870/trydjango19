@@ -4,19 +4,24 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
+from django.utils import timezone
 
 from .forms import PostForm
 from .models import Post
 
 def post_list(request):
-    all_post_list = Post.objects.all()
+    if request.user.is_staff or request.user.is_superuser:
+        all_post_list = Post.objects.all()
+    else:
+        all_post_list = Post.objects.active()
     paginator = Paginator(all_post_list, 5) #show 5 posts per page
     page_req_var = 'page'
     page = request.GET.get(page_req_var)
     context = {
         'title': 'Post lists',
         'page_req_var': page_req_var,
-        'post_list': paginator.get_page(page)
+        'post_list': paginator.get_page(page),
+        'today': timezone.now().date()
     }
     return render(request, 'posts/post_list.html', context=context)
 
@@ -39,12 +44,15 @@ def post_create(request):
 
 def post_detail(request, slug=None):
     instance = get_object_or_404(Post, slug=slug)
+    if instance.draft or instance.publish > timezone.now().date():
+        if not request.user.is_staff and not request.user.is_superuser:
+            raise Http404
     share_string = quote_plus(instance.content)
     context = {
         'instance': instance,
         'share_string': share_string
     }
-    return render(request, 'posts/post_detail.html', {'context': context})
+    return render(request, 'posts/post_detail.html', context=context)
 
 def post_update(request, id=None):
     if not request.user.is_staff and not request.user.is_superuser:
