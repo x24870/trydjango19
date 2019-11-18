@@ -12,8 +12,14 @@
     {% if context.instance.user.get_full_name %}
         <h6>Author: {{ context.instance.user.get_full_name }}</h6>
     {% endif %}
-    <h6>{{ context.instance.timestamp }}</h6>
-    <h6>{{ context.instance.updated }}</h6>
+    <!-- <h6>{{ context.instance.timestamp }}</h6> -->
+    <!-- <h6>{{ context.instance.updated }}</h6> -->
+    <h6>
+        Published: {{ context.instance.publish }}
+        {% if context.instance.draft %}
+            <small><span style="color:red">Draft</span></small>
+        {% endif %}
+    </h6>
     <hr>
     {% if context.instance.image %}
     <img src="{{ context.instance.image.url }}" class="img-resp">
