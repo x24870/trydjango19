@@ -2,6 +2,7 @@ from urllib.parse import quote_plus
 
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.paginator import Paginator
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.utils import timezone
@@ -14,6 +15,17 @@ def post_list(request):
         all_post_list = Post.objects.all()
     else:
         all_post_list = Post.objects.active()
+
+    # Search Posts
+    query = request.GET.get('q')
+    if query:
+        all_post_list = all_post_list.filter(
+            Q(title__icontains=query) |
+            Q(content__icontains=query) |
+            Q(user__first_name__icontains=query) |
+            Q(user__last_name__icontains=query)
+            ).distinct()
+
     paginator = Paginator(all_post_list, 5) #show 5 posts per page
     page_req_var = 'page'
     page = request.GET.get(page_req_var)
