@@ -31,7 +31,7 @@
                     <small><span style="color:red">Not publish Yet</span></small>
                 {% endif %}
             </h6>
-            <p>{{ post.content | linebreaks | truncatechars:80 }}</p>
+            <p class="content-markdown">{{ post.content | truncatechars:80 }}</p>
             <a href="{{ post.get_absolute_url }}" class="btn btn-primary">View...</a>
         </div>
         <hr>

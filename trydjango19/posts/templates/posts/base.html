@@ -12,6 +12,9 @@
 
     <title>{% block title %}Try Django 1.9{% endblock title %}</title>
     <link rel="stylesheet" href="{% static 'posts/css/base.css' %}">
+
+    {% block head_extra %}{% endblock head_extra %}
+
 </head>
 <body>
     <div id="fb-root"></div>
