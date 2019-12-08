@@ -48,6 +48,11 @@
             console.log(markedContent)
             $(this).html(markedContent)
         })
+
+        $(".content-markdown img").each(function(){
+            $(this).addClass("img-responsive")
+            $(this).width('100%')
+        })
     })
     </script>
 </body>
