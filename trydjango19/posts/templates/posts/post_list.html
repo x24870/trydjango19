@@ -17,7 +17,7 @@
         {% if post.image %}
         <img class="card-img-top" src="{{ post.image.url }}">
         {% endif %}
-        <div class="card-body">
+        <div class="card-body post-detail-item">
             <h2 class="card-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
                 <!-- <small> | {{ post.timestamp }}</small> -->
             </h2>
@@ -31,7 +31,7 @@
                     <small><span style="color:red">Not publish Yet</span></small>
                 {% endif %}
             </h6>
-            <p class="content-markdown">{{ post.content  }}</p>
+            {{ post.get_markdown }}
             <a href="{{ post.get_absolute_url }}" class="btn btn-primary">View...</a>
         </div>
         <hr>

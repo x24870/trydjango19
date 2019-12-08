@@ -25,7 +25,7 @@
     <img src="{{ instance.image.url }}" class="img-resp">
     {% endif %}
 
-    <div class="content-markdown">{{ instance.content }}</div>
+    <div class="post-detail-item">{{ instance.get_markdown }}</div>
 
     <hr>
     <div class="row">
