@@ -5,9 +5,21 @@
 {% endblock head_extra %}
 
 {% block content %}
-    <h1>This is post_form page</h1>
-    <form method="POST" enctype="multipart/form-data">{% csrf_token %}
-{{ form.as_p }}
-        <input type="submit" value="Create Post" />
-    </form>
+<h1>This is post_form page</h1>
+<hr>
+<div class="row">
+    <div class="col-sm-6">
+        <h3>Preview</h3>
+        <div class="content-preview">
+            <h6 id="title-preview"></h6>
+            <p id="content-preview"></p>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+    {{ form.as_p }}
+            <input type="submit" value="Create Post" />
+        </form>
+    </div>
+</div>
 {% endblock content %}

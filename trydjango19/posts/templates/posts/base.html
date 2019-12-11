@@ -42,16 +42,47 @@
     <script type="text/javascript">
     $(document).ready(function(){
         $(".content-markdown").each(function(){
-            var content = $(this).text()
-            console.log(content)
-            var markedContent = marked(content)
-            console.log(markedContent)
-            $(this).html(markedContent)
+            var content = $(this).text();
+            console.log(content);
+            var markedContent = marked(content);
+            console.log(markedContent);
+            $(this).html(markedContent);
         })
 
         $(".post-detail-item img").each(function(){
-            $(this).addClass("img-responsive")
-            $(this).width('100%')
+            $(this).addClass("img-responsive");
+            $(this).width('100%');
+        })
+
+        // dynamic update preview title
+        var titleInput = $("#id_title");
+        
+
+        function setTitle(value){
+            console.log(value)
+            $("#title-preview").text(value);
+        }
+        setTitle(titleInput.val());
+
+        titleInput.keyup(function(){
+            setTitle(titleInput.val());
+        })
+
+        // dynamic update preview content
+        var contentInput = $("#wmd-input-id_content");
+
+        function setContent(value){
+            var markedContent = marked(value);
+            $("#content-preview").html(markedContent);
+            $("#content-preview img").each(function(){
+                $(this).addClass("img-responsive");
+                $(this).width('100%');
+            })
+        }
+        setContent(contentInput.val());
+
+        contentInput.keyup(function(){
+            setContent(contentInput.val());
         })
     })
     </script>
