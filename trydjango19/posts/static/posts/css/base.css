@@ -5,3 +5,8 @@ h1 {
 .wmd-preview {
     display: none !important;
 }
+
+.wmd-panel{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
