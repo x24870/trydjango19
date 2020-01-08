@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'markdown_deux',
     # local apps
     'posts',
+    'comments',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

@@ -46,6 +46,9 @@
         </p>
     </div>
     <div class="row">
+        {{ instance.comment_set.all }}
+    </div>
+    <div class="row">
         <div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-width="" data-numposts="5"></div>
     </div>
 
