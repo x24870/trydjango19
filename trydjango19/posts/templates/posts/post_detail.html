@@ -45,8 +45,13 @@
         </a>
         </p>
     </div>
-    <div class="row">
-        {{ instance.comment_set.all }}
+    <div class="">
+        <p class="lead">Comments</p>
+        {% for comment in comments %}
+            <div class="">{{ comment.content }}</div>
+            <small>via {{ comment.user }} | {{ comment.timestamp | timesince }} ago</small>
+            <hr>
+        {% endfor %}
     </div>
     <div class="row">
         <div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-width="" data-numposts="5"></div>

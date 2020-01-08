@@ -5,8 +5,11 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
+from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
 
+
+from comments.models import Comment
 from .forms import PostForm
 from .models import Post
 
@@ -60,9 +63,16 @@ def post_detail(request, slug=None):
         if not request.user.is_staff and not request.user.is_superuser:
             raise Http404
     share_string = quote_plus(instance.content)
+
+    content_type = ContentType.objects.get_for_model(Post)
+    object_id = instance.id
+    comments = Comment.objects.filter(content_type=content_type, object_id=object_id)
+    # equals to: comments = Comment.objects.filter(post=instance)
+
     context = {
         'instance': instance,
-        'share_string': share_string
+        'share_string': share_string,
+        'comments': comments
     }
     return render(request, 'posts/post_detail.html', context=context)
 
