@@ -5,7 +5,6 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
 
 
@@ -64,10 +63,8 @@ def post_detail(request, slug=None):
             raise Http404
     share_string = quote_plus(instance.content)
 
-    content_type = ContentType.objects.get_for_model(Post)
-    object_id = instance.id
-    comments = Comment.objects.filter(content_type=content_type, object_id=object_id)
-    # equals to: comments = Comment.objects.filter(post=instance)
+    comments = instance.comments
+    # equals to: Comment.objects.filter_by_instance(instance)
 
     context = {
         'instance': instance,

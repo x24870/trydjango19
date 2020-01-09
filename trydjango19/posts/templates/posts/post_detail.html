@@ -45,11 +45,16 @@
         </a>
         </p>
     </div>
+
+
+
     <div class="">
-        <p class="lead">Comments</p>
+        <h3>Comments</h3><hr>
         {% for comment in comments %}
-            <div class="">{{ comment.content }}</div>
-            <small>via {{ comment.user }} | {{ comment.timestamp | timesince }} ago</small>
+            <blockquote class="blockquote">
+                <p class="mb-0">{{ comment.content }}</p>
+                <footer class="blockquote-footer">via {{ comment.user }} | {{ comment.timestamp | timesince }} ago</footer>
+              </blockquote>
             <hr>
         {% endfor %}
     </div>

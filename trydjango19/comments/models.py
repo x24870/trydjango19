@@ -5,9 +5,15 @@ from django.db import models
 from django.conf import settings
 from django.db.models.deletion import SET_NULL, CASCADE
 
-from posts.models import Post
-
 # Create your models here.
+class CommentManager(models.Manager):
+    def filter_by_instance(self, instance):
+        content_type = ContentType.objects.get_for_model(instance.__class__)
+        object_id = instance.id
+        #comments = Comment.objects.filter(content_type=content_type, object_id=object_id)
+        qs = super(CommentManager, self).filter(content_type=content_type, object_id=object_id)
+        return qs
+
 class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=SET_NULL, null=True)
 
@@ -18,6 +24,8 @@ class Comment(models.Model):
 
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
+
+    objects = CommentManager()
 
     def __str__(self):
         return str(self.user.username)
