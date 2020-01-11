@@ -5,9 +5,10 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
+from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
 
-
+from comments.forms import CommentForm
 from comments.models import Comment
 from .forms import PostForm
 from .models import Post
@@ -66,10 +67,33 @@ def post_detail(request, slug=None):
     comments = instance.comments
     # equals to: Comment.objects.filter_by_instance(instance)
 
+    initial_data = {
+        'content_type': instance.get_content_type,
+        'object_id' : instance.id
+    }
+
+    form = CommentForm(request.POST or None, initial=initial_data)
+    if form.is_valid():
+        # c_type = form.cleaned_data.get('content_type')
+        # content_type = ContentType.objects.get(model=ctype)
+        # Above two steps will cause error, because of ContentType __str__ format
+        # So I changed to this method as below
+        content_type = ContentType.objects.get(model=instance.__class__.__name__.lower())
+
+        obj_id = form.cleaned_data.get('object_id')
+        content = form.cleaned_data.get('content')
+        newComment = Comment.objects.get_or_create(
+            user = request.user,
+            content_type = content_type,
+            object_id = obj_id,
+            content = content
+        )
+
     context = {
         'instance': instance,
         'share_string': share_string,
-        'comments': comments
+        'comments': comments,
+        'comment_form': form
     }
     return render(request, 'posts/post_detail.html', context=context)
 
