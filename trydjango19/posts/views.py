@@ -80,14 +80,29 @@ def post_detail(request, slug=None):
         # So I changed to this method as below
         content_type = ContentType.objects.get(model=instance.__class__.__name__.lower())
 
+        parent_obj = None
+        parent_id = request.POST.get('parent_id')
+        try:
+            parent_id = int(request.POST.get('parent_id'))
+        except:
+            parent_id = None
+        if parent_id:
+            parent_qs = Comment.objects.filter(id=parent_id)
+            if parent_qs.exists() and parent_qs.count()==1:
+                parent_obj = parent_qs.first()
+
         obj_id = form.cleaned_data.get('object_id')
         content = form.cleaned_data.get('content')
-        newComment = Comment.objects.get_or_create(
+
+        newComment, created = Comment.objects.get_or_create(
             user = request.user,
             content_type = content_type,
             object_id = obj_id,
-            content = content
+            content = content,
+            parent = parent_obj
         )
+
+        return HttpResponseRedirect(newComment.content_object.get_absolute_url())
 
     context = {
         'instance': instance,
