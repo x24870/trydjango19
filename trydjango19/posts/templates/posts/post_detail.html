@@ -13,6 +13,9 @@
     {% if instance.user.get_full_name %}
         <h6>Author: {{ instance.user.get_full_name }}</h6>
     {% endif %}
+
+    <p>Read time: {% if instance.read_time <= 1 %}<1 minute{% else %}{{ instance.read_time}} minutes{% endif %}</p>
+
     <!-- <h6>{{ instance.timestamp }}</h6> -->
     <!-- <h6>{{ instance.updated }}</h6> -->
     <h6>
