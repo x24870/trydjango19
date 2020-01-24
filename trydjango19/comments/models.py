@@ -1,6 +1,7 @@
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.urls import reverse
 
 from django.conf import settings
 from django.db.models.deletion import SET_NULL, CASCADE
@@ -37,10 +38,13 @@ class Comment(models.Model):
         ordering = ['-timestamp']
 
     def __str__(self):
-        return str(self.user.username)
+        return str(self.content)
 
     def children(self): #replies
         return Comment.objects.filter(parent=self)
+
+    def get_absolute_url(self):
+        return reverse('comments:thread', kwargs={'id': self.id})
 
     @property
     def is_parent(self):
