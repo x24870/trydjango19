@@ -6,7 +6,11 @@
             <p class="mb-0">Are you sure to delete "{{ comment.content }}" ?</p>
             <br>
             <input type="submit" class="btn btn-warning" value="Confirm">
-            <a href="{{ comment.get_absolute_url }}" class="btn btn-default">Cancel</a>
+            <!-- <a href="{{ comment.get_absolute_url }}" class="btn btn-default">Cancel</a> -->
+
+            <a href="{% if not comment.parent %}{{ comment.get_absolute_url }}{% else %}{{ comment.parent.get_absolute_url }}{% endif %}" class="btn btn-default">Cancel</a>
+
+
         </form>
     </div>
 

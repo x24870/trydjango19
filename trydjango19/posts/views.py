@@ -81,7 +81,6 @@ def post_detail(request, slug=None):
         content_type = ContentType.objects.get(model=instance.__class__.__name__.lower())
 
         parent_obj = None
-        parent_id = request.POST.get('parent_id')
         try:
             parent_id = int(request.POST.get('parent_id'))
         except:

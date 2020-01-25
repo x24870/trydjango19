@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404
 
 from .models import Comment
@@ -50,13 +50,26 @@ def comment_thread(request, id):
     return render(request, 'comments/comment_thread.html', context=context)
 
 def confirm_delete(request, id):
-    comment = get_object_or_404(Comment, id=id)
+    #comment = get_object_or_404(Comment, id=id)
+    try:
+        comment = Comment.objects.get(id=id)
+    except:
+        return Http404
+
+    if request.user != comment.user:
+        response = HttpResponse('You do not have permission to do this.')
+        response.status_code = 403
+        return response
 
     if request.method == 'POST':
         parent_obj_url = comment.content_object.get_absolute_url()
+        # print(comment.id)
+        # print(comment)
+        # print(comment.content_type)
+        # print(comment.content_object)
+        # print(parent_obj_url)
         comment.delete()
         messages.success(request, 'Delete comment successfully')
-        print(parent_obj_url)
         return HttpResponseRedirect(parent_obj_url)
 
     context = {
