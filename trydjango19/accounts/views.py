@@ -7,8 +7,11 @@ def login_view(request):
     form = UserLoginForm(request.POST or None)
 
     if form.is_valid():
-        username = form.cleaned_data('username')
-        password = form.cleaned_data('password')
+        username = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password')
+        user = authenticate(username=username, password=password)
+        login(request, user)
+        #TODO redirect
 
     context = {
         'form': form,
@@ -17,7 +20,8 @@ def login_view(request):
     return render(request, 'posts/form.html', context=context)
 
 def register_view(request):
-    return render(request, 'form.html', {})
+    return render(request, 'posts/form.html', {})
     
 def logout_view(request):
-    return render(request, 'form.html', {})
+    logout(request)
+    return render(request, 'posts/form.html', {})
