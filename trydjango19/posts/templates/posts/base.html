@@ -26,6 +26,18 @@
 
     <div class="container">
         <div class="col-sm-6 offset-sm-2">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="">Home</a></li>
+                {% block post_detail_link %}
+                {% endblock post_detail_link %}
+    
+                {% if not request.user.is_authenticated %}
+                <li class="ml-auto"><a href="{% url 'accounts:register' %}">Register</a></li>|
+                <li class=""><a href="{% url 'accounts:login' %}">Login</a></li>
+                {% else %}
+                <li class="ml-auto"><a href="{% url 'accounts:logout' %}">Logout</a></li>
+                {% endif %}
+            </ol>
         {% block content %}
             <h3>Extends from base.html</h3>
             <!-- use block.super to include parent html block content -->

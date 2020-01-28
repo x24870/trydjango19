@@ -6,6 +6,10 @@
 {{ instance.title }} | {{ block.super }}
 {% endblock title %}
 
+{% block post_detail_link %}
+<li class="breadcrumb-item"><a href="{{ instance.get_absolute_url }}">{{ instance.title }}</a></li>
+{% endblock post_detail_link %}
+
 {% block content %}
     <h1>This is post_detail page</h1>
 
