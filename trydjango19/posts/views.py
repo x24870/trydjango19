@@ -73,7 +73,7 @@ def post_detail(request, slug=None):
     }
 
     form = CommentForm(request.POST or None, initial=initial_data)
-    if form.is_valid():
+    if form.is_valid() and request.user.is_authenticated:
         # c_type = form.cleaned_data.get('content_type')
         # content_type = ContentType.objects.get(model=ctype)
         # Above two steps will cause error, because of ContentType __str__ format

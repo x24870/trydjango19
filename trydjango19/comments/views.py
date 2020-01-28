@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404
 
@@ -16,7 +17,7 @@ def comment_thread(request, id):
     }
     form = CommentForm(request.POST or None, initial=initial_data)
     print(form.errors)
-    if form.is_valid():
+    if form.is_valid() and request.user.is_authenticated:
         content_type = ContentType.objects.get(model=comment.__class__.__name__.lower())
 
         parent_obj = None
@@ -49,6 +50,7 @@ def comment_thread(request, id):
     }
     return render(request, 'comments/comment_thread.html', context=context)
 
+@login_required(login_url='accounts:login')# Or you can add LOGIN_URL parameter in settings.py
 def confirm_delete(request, id):
     #comment = get_object_or_404(Comment, id=id)
     try:
