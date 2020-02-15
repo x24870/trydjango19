@@ -9,6 +9,9 @@ pillow = "*"
 django-pagedown = "*"
 django-markdown-deux = "*"
 django-crispy-forms = "*"
+djangorestframework = "*"
+markdown = "*"
+django-filter = "*"
 
 [dev-packages]
 
