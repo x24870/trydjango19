@@ -25,6 +25,9 @@ class PostDetailSerializer(ModelSerializer):
 
 
 """
+from posts.models import Post
+from posts.api.serializers import PostDetailSerializer
+
 data  = {
     'title': 'Yeah buddy',
     'content': 'New content',
@@ -32,7 +35,8 @@ data  = {
     'slug': 'yeah-buddu',
 }
 
-new_item = PostSerializer(data=data)
+obj = Post.objects.get(id=3)
+new_item = PostSerializer(obj, data=data)
 if new_item.is_valid():
     new_item.save()
 else:
