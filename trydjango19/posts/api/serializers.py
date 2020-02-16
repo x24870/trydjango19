@@ -23,6 +23,17 @@ class PostDetailSerializer(ModelSerializer):
             'publish',
         ]
 
+class PostCreateUpdateSerializer(ModelSerializer):
+    class Meta:
+        model = Post
+        fields = [
+            # 'id',
+            'title',
+            # 'slug',
+            'content',
+            'publish',
+        ]
+
 
 """
 from posts.models import Post
