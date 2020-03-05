@@ -1,3 +1,9 @@
+from django.db.models import Q
+
+from rest_framework.filters import (
+    SearchFilter,
+    OrderingFilter,
+)
 from rest_framework.generics import(
     ListAPIView, 
     RetrieveAPIView,
@@ -19,8 +25,28 @@ from .serializers import PostListSerializer, PostDetailSerializer, PostCreateUpd
 from .permissions import IsOwnerOrReadOnly
 
 class PostListAPIView(ListAPIView):
-    queryset = Post.objects.all()
     serializer_class = PostListSerializer
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ['title', 'content', 'user__first_name']
+    # URL examples
+    # 1. Two depth search, first keyword is 'pyk', second keyword is 'edit':
+    # http://127.0.0.1:8000/api/posts/?search=pyk&q=edit
+    # 2. Search posts contain keyword 'pyk' and ordering in inverse title sequence  
+    # http://127.0.0.1:8000/api/posts/?search=pyk&ordering=-title
+
+    def get_queryset(self, *args, **kargs):
+        #queryset_list = super(PostListAPIView, self).get_queryset(*args, **kargs)
+        queryset_list = Post.objects.all() # Same meaning as above line
+        query = self.request.GET.get('q')
+        if query:
+            queryset_list = queryset_list.filter(
+                Q(title__icontains=query) |
+                Q(content__icontains=query) |
+                Q(user__first_name__icontains=query) |
+                Q(user__last_name__icontains=query)
+                ).distinct()
+
+        return queryset_list
 
 class PostDetailAPIView(RetrieveAPIView):
     queryset = Post.objects.all()
