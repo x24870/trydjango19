@@ -13,11 +13,6 @@ from rest_framework.generics import(
     CreateAPIView,
 )
 
-from rest_framework.pagination import (
-    LimitOffsetPagination,
-    PageNumberPagination,
-)
-
 from rest_framework.permissions import (
     AllowAny,
     IsAuthenticated,
@@ -26,6 +21,7 @@ from rest_framework.permissions import (
 )
 
 from posts.models import Post
+from .pagination import PostLimitOffsetPagination, PostPageNumberPagination
 from .serializers import PostListSerializer, PostDetailSerializer, PostCreateUpdateSerializer
 from .permissions import IsOwnerOrReadOnly
 
@@ -39,7 +35,7 @@ class PostListAPIView(ListAPIView):
     # 2. Search posts contain keyword 'pyk' and ordering in inverse title sequence  
     # http://127.0.0.1:8000/api/posts/?search=pyk&ordering=-title
 
-    pagination_class = LimitOffsetPagination #PageNumberPagination
+    pagination_class = PostPageNumberPagination #PostLimitOffsetPagination
 
     def get_queryset(self, *args, **kargs):
         #queryset_list = super(PostListAPIView, self).get_queryset(*args, **kargs)
