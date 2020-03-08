@@ -10,6 +10,6 @@ app_name = 'comments'
 
 urlpatterns = [
     path('', CommentListAPIView.as_view(), name='list'),
-    path('<id>/', CommenttDetailAPIView.as_view(), name='thread'),
+    path('<pk>/', CommenttDetailAPIView.as_view(), name='thread'),
     # path('<id>/delete/', views.confirm_delete, name='delete'),
 ]
