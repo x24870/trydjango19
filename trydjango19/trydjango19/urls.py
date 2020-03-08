@@ -26,6 +26,7 @@ urlpatterns = [
     path('comments/', include('comments.urls',namespace='comments')),
     path('accounts/', include('accounts.urls' ,namespace='accounts')),
     path('api/posts/', include('posts.api.urls',namespace='posts-api')),
+    path('api/comments/', include('comments.api.urls',namespace='comments-api')),
 ]
 
 if settings.DEBUG:
