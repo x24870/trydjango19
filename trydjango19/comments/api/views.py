@@ -1,5 +1,6 @@
 from django.db.models import Q
 
+from rest_framework.mixins import DestroyModelMixin, UpdateModelMixin
 from rest_framework.filters import (
     SearchFilter,
     OrderingFilter,
@@ -27,6 +28,7 @@ from comments.models import Comment
 from .serializers import (
     CommentSerializer,
     CommentDetailSerializer,
+    CommentEditSerializer,
     create_comment_serializer,
 )
 
@@ -63,10 +65,16 @@ class CommenttDetailAPIView(RetrieveAPIView):
 #     def perform_update(self, serializer):
 #         serializer.save(user=self.request.user)
 
-# class PostDeleteAPIView(DestroyAPIView):
-#     queryset = Post.objects.all()
-#     serializer_class = PostDetailSerializer
-#     lookup_field = 'slug'
+class CommentEditAPIView(DestroyModelMixin, UpdateModelMixin, RetrieveAPIView):
+    queryset = Comment.objects.filter(id__gte=0) # get all comment object, 
+                                              # because we re-write all() method in CommentManager that only get parent comment
+    serializer_class = CommentEditSerializer
+    
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
 
 class CommentCreateAPIView(CreateAPIView):
     queryset = Comment.objects.all()
