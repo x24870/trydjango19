@@ -28,18 +28,20 @@ from comments.models import Comment
 from .serializers import (
     CommentSerializer,
     CommentDetailSerializer,
+    CommentListSerializer,
     create_comment_serializer,
 )
 
 class CommentListAPIView(ListAPIView):
-    serializer_class = CommentSerializer
+    serializer_class = CommentListSerializer
     filter_backends = [SearchFilter, OrderingFilter]
     search_fields = ['content', 'user__first_name']
     pagination_class = PostPageNumberPagination #PostLimitOffsetPagination
 
     def get_queryset(self, *args, **kargs):
         #queryset_list = super(PostListAPIView, self).get_queryset(*args, **kargs)
-        queryset_list = Comment.objects.all() # Same meaning as above line
+        # queryset_list = Comment.objects.all() # Same meaning as above line
+        queryset_list = Comment.objects.filter(id__gte=0)
         query = self.request.GET.get('q')
         if query:
             queryset_list = queryset_list.filter(
