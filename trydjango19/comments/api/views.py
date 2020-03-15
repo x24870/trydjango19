@@ -28,7 +28,6 @@ from comments.models import Comment
 from .serializers import (
     CommentSerializer,
     CommentDetailSerializer,
-    CommentEditSerializer,
     create_comment_serializer,
 )
 
@@ -51,11 +50,6 @@ class CommentListAPIView(ListAPIView):
 
         return queryset_list
 
-class CommenttDetailAPIView(RetrieveAPIView):
-    queryset = Comment.objects.all()
-    serializer_class = CommentDetailSerializer
-    lookup_field = 'pk'
-
 # class PostUpdateAPIView(RetrieveUpdateAPIView):
 #     queryset = Post.objects.all()
 #     serializer_class = PostCreateUpdateSerializer
@@ -65,10 +59,11 @@ class CommenttDetailAPIView(RetrieveAPIView):
 #     def perform_update(self, serializer):
 #         serializer.save(user=self.request.user)
 
-class CommentEditAPIView(DestroyModelMixin, UpdateModelMixin, RetrieveAPIView):
+class CommentDetailAPIView(DestroyModelMixin, UpdateModelMixin, RetrieveAPIView):
     queryset = Comment.objects.filter(id__gte=0) # get all comment object, 
                                               # because we re-write all() method in CommentManager that only get parent comment
-    serializer_class = CommentEditSerializer
+    serializer_class = CommentDetailSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
