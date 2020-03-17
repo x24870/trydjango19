@@ -6,19 +6,43 @@ from rest_framework.serializers import (
     HyperlinkedIdentityField,
     SerializerMethodField,
     ValidationError,
+    EmailField,
 )
 
 User = get_user_model()
 
 class UserCreateSerializer(ModelSerializer):
+    email2 = EmailField(label='Email address')
+    email2 = EmailField(label='Comfirm email')
     class Meta:
         model = User
         fields = [
             'username',
             'password',
             'email',
+            'email2',
         ]
         extra_kwargs = {'password': {'write_only': True}}
+
+    def validate(self, data):
+        # email = data['email']
+        # user_qs = User.objects.filter(email=email)
+        # if user_qs.exists():
+        #     raise ValidationError('This email has already been registered')
+        return data
+
+    def validate_email2(self, value):
+        data = self.get_initial()
+        email1 = data.get('email')
+        email2 = value
+        if email1 != email2:
+            raise ValidationError('Email must match')
+
+        user_qs = User.objects.filter(email=email2)
+        if user_qs.exists():
+            raise ValidationError('This email has already been registered')
+
+        return value
 
     def create(self, validated_data):
         username = validated_data['username']
