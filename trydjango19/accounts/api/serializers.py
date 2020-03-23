@@ -12,7 +12,7 @@ from rest_framework.serializers import (
 User = get_user_model()
 
 class UserCreateSerializer(ModelSerializer):
-    email2 = EmailField(label='Email address')
+    email = EmailField(label='Email address')
     email2 = EmailField(label='Comfirm email')
     class Meta:
         model = User
