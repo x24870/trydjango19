@@ -37,6 +37,7 @@ class CommentListAPIView(ListAPIView):
     filter_backends = [SearchFilter, OrderingFilter]
     search_fields = ['content', 'user__first_name']
     pagination_class = PostPageNumberPagination #PostLimitOffsetPagination
+    permission_classes = [AllowAny]
 
     def get_queryset(self, *args, **kargs):
         #queryset_list = super(PostListAPIView, self).get_queryset(*args, **kargs)
@@ -65,7 +66,7 @@ class CommentDetailAPIView(DestroyModelMixin, UpdateModelMixin, RetrieveAPIView)
     queryset = Comment.objects.filter(id__gte=0) # get all comment object, 
                                               # because we re-write all() method in CommentManager that only get parent comment
     serializer_class = CommentDetailSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
     
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
@@ -76,7 +77,7 @@ class CommentDetailAPIView(DestroyModelMixin, UpdateModelMixin, RetrieveAPIView)
 class CommentCreateAPIView(CreateAPIView):
     queryset = Comment.objects.all()
     #serializer_class = PostCreateUpdateSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def get_serializer_class(self):
         model_type = self.request.GET.get('type')
