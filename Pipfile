@@ -12,6 +12,7 @@ django-crispy-forms = "*"
 djangorestframework = "*"
 markdown = "*"
 django-filter = "*"
+djangorestframework-jwt = "*"
 
 [dev-packages]
 

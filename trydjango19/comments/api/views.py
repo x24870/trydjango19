@@ -37,7 +37,7 @@ class CommentListAPIView(ListAPIView):
     filter_backends = [SearchFilter, OrderingFilter]
     search_fields = ['content', 'user__first_name']
     pagination_class = PostPageNumberPagination #PostLimitOffsetPagination
-    permission_classes = [AllowAny]
+    # permission_classes = [AllowAny]
 
     def get_queryset(self, *args, **kargs):
         #queryset_list = super(PostListAPIView, self).get_queryset(*args, **kargs)

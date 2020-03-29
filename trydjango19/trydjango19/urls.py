@@ -20,11 +20,14 @@ from django.urls import path
 from django.conf.urls import include
 from django.conf.urls.static import static
 
+from rest_framework_jwt.views import obtain_jwt_token
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('posts/', include('posts.urls',namespace='posts')),
     path('comments/', include('comments.urls',namespace='comments')),
     path('accounts/', include('accounts.urls' ,namespace='accounts')),
+    path('api/auth/token', obtain_jwt_token),
     path('api/users/', include('accounts.api.urls',namespace='users-api')),
     path('api/posts/', include('posts.api.urls',namespace='posts-api')),
     path('api/comments/', include('comments.api.urls',namespace='comments-api')),
