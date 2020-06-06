@@ -25,11 +25,11 @@
         },
         "django": {
             "hashes": [
-                "sha256:50b781f6cbeb98f673aa76ed8e572a019a45e52bdd4ad09001072dfd91ab07c8",
-                "sha256:89e451bfbb815280b137e33e454ddd56481fdaa6334054e6e031041ee1eda360"
+                "sha256:5052b34b34b3425233c682e0e11d658fd6efd587d11335a0203d827224ada8f2",
+                "sha256:e1630333248c9b3d4e38f02093a26f1e07b271ca896d73097457996e0fae12e8"
             ],
             "index": "pypi",
-            "version": "==3.0.4"
+            "version": "==3.0.7"
         },
         "django-crispy-forms": {
             "hashes": [
@@ -57,7 +57,8 @@
         "django-pagedown": {
             "hashes": [
                 "sha256:2558c14167baf05bb5205dccd880d1efc62b3a16530d98b165dc85fc26692eb1",
-                "sha256:83b30134131a49358196f8c2f0e2e25d730ee7a820482a7fda5ef386c22b1d6c"
+                "sha256:83b30134131a49358196f8c2f0e2e25d730ee7a820482a7fda5ef386c22b1d6c",
+                "sha256:92f45ed52da00526cbdbf8c7cbd33d721f25f7d5757c4be5754d6c41695f7992"
             ],
             "index": "pypi",
             "version": "==2.0.3"
@@ -88,10 +89,10 @@
         },
         "markdown2": {
             "hashes": [
-                "sha256:7ff88e00b396c02c8e1ecd8d176cfa418fb01fe81234dcea77803e7ce4f05dbe",
-                "sha256:882d3607fc023cdea0ac2cd0e1147617fcb0361cb1133d3ff095417f995ff270"
+                "sha256:89526090907ae5ece66d783c434b35c29ee500c1986309e306ce2346273ada6a",
+                "sha256:e6b401ec80b75e76a6b3dbb2c8ade513156fa55fa6c30b9640a1abf6184a07c8"
             ],
-            "version": "==2.3.8"
+            "version": "==2.3.9"
         },
         "pillow": {
             "hashes": [
@@ -130,10 +131,10 @@
         },
         "pytz": {
             "hashes": [
-                "sha256:1c557d7d0e871de1f5ccd5833f60fb2550652da6be2693c1e02300743d21500d",
-                "sha256:b02c06db6cf09c12dd25137e563b31700d3b80fcc4ad23abb7a315f2789819be"
+                "sha256:a494d53b6d39c3c6e44c3bec237336e14305e4f29bbf800b599253057fbb79ed",
+                "sha256:c35965d010ce31b23eeb663ed3cc8c906275d6be1a34393a1d73a41febf4a048"
             ],
-            "version": "==2019.3"
+            "version": "==2020.1"
         },
         "sqlparse": {
             "hashes": [
